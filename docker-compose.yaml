@@ -1,0 +1,82 @@
+version: "3.8"
+services:
+  redis-cluster-node-0:
+   container_name: redis0
+   image: redis:7.2.4-alpine
+   command: redis-server /usr/local/etc/redis/redis.conf
+#   networks:
+#     - your-local-network
+   ports:
+     - "6379:6379"
+   volumes:
+     - ./redis/redis_config_folder:/usr/local/etc/redis/redis.conf
+
+  redis-cluster-node-1:
+   container_name: redis1
+   image: redis:7.2.4-alpine
+   command: redis-server /usr/local/etc/redis/redis.conf
+#   networks:
+#     - your-local-network
+   ports:
+     - "6378:6379"
+   volumes:
+     - ./redis/redis_config_folder:/usr/local/etc/redis/redis.conf
+
+  redis-cluster-node-2:
+    container_name: redis2
+    image: redis:7.2.4-alpine
+    command: redis-server /usr/local/etc/redis/redis.conf
+#    networks:
+#      - your-local-network
+    ports:
+      - "6377:6379"
+    volumes:
+      - ./redis/redis_config_folder:/usr/local/etc/redis/redis.conf
+  redis-cluster-node-3:
+    container_name: redis3
+    image: redis:7.2.4-alpine
+    command: redis-server /usr/local/etc/redis/redis.conf
+#    networks:
+#      - your-local-network
+    ports:
+      - "6376:6379"
+    volumes:
+      - ./redis/redis_config_folder:/usr/local/etc/redis/redis.conf
+
+  redis-cluster-node-4:
+    container_name: redis4
+    image: redis:7.2.4-alpine
+    command: redis-server /usr/local/etc/redis/redis.conf
+#    networks:
+#      - your-local-network
+    ports:
+      - "6375:6379"
+    volumes:
+      - ./redis/redis_config_folder:/usr/local/etc/redis/redis.conf
+
+  redis-cluster-node-5:
+    container_name: redis5
+    image: redis:7.2.4-alpine
+    command: redis-server /usr/local/etc/redis/redis.conf
+#    networks:
+#      - your-local-network
+    ports:
+      - "6374:6379"
+    volumes:
+      - ./redis/redis_config_folder:/usr/local/etc/redis/redis.conf
+
+  redis-cluster-configure:
+    image: redis:7.2.4-alpine
+    command: /usr/local/etc/redis/redis-cluster-create.sh
+#    networks:
+#      - your-local-network
+    depends_on:
+      - redis-cluster-node-0
+      - redis-cluster-node-1
+      - redis-cluster-node-2
+      - redis-cluster-node-3
+      - redis-cluster-node-4
+      - redis-cluster-node-5
+    user: ${CURRENT_UID}
+    volumes:
+      - ./redis_script_folder:/usr/local/etc/redis/redis-cluster-create.sh
