@@ -1,0 +1,14 @@
+image:
+  repository: redis/redis-stack-server
+  tag: 7.2.0-v10
+auth:
+  enabled: false
+commonConfiguration: |
+  loadmodule /opt/redis-stack/lib/redisearch.so
+  loadmodule /opt/redis-stack/lib/redisbloom.so
+  loadmodule /opt/redis-stack/lib/rediscompat.so
+  loadmodule /opt/redis-stack/lib/redistimeseries.so
+  loadmodule /opt/redis-stack/lib/rejson.so
+replica:
+  service:
+    type: LoadBalancer
